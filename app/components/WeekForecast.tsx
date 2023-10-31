@@ -1,3 +1,6 @@
+import React from 'react';
+import DayForecast from './DayForecast';
+
 interface DayForecast {
   date: string;
   day: {
@@ -24,36 +27,16 @@ const WeekForecast = ({ data }: WeekForecastProps) => {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-8 w-full ">
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-8 w-full">
       {data.forecast.forecastday.map((day, index) => (
-        <div
+        <DayForecast
           key={index}
-          className="bg-white/40 p-2 text-center rounded-lg flex flex-col items-center font-semibold gap-4"
-          role="group"
-          aria-label={`Forecast for ${new Date(day.date).toLocaleString("es", { weekday: "short" })}`}
-        >
-          <p className="italic text-2xl">{new Date(day.date).toLocaleString("es", { weekday: "short" })}</p>
-          <img
-            className="w-50 h-50"
-            src={day.day.condition.icon}
-            alt={day.day.condition.text}
-            aria-label={day.day.condition.text}
-          />
-          <div>
-            <p className="bg-black/25 px-2 italic rounded-xl text-white mb-2">
-            Maxima:{" "}
-              <span aria-label={`Maximum temperature: ${day.day.maxtemp_c.toFixed()} degrees Fahrenheit`}>
-                {day.day.maxtemp_c.toFixed()}°
-              </span>
-            </p>
-            <p className="bg-black/25 px-2 italic rounded-xl text-white">
-              Minima:{" "}
-              <span aria-label={`Minimum temperature: ${day.day.mintemp_c.toFixed()} degrees Fahrenheit`}>
-                {day.day.mintemp_c.toFixed()}°
-              </span>
-            </p>
-          </div>
-        </div>
+          date={day.date}
+          icon={day.day.condition.icon}
+          text={day.day.condition.text}
+          maxTemp={day.day.maxtemp_c}
+          minTemp={day.day.mintemp_c}
+        />
       ))}
     </div>
   );

@@ -1,5 +1,8 @@
-import { getCurrentDate } from "../utils/currentDate";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import React from 'react';
+import DateDisplay from './DateDisplay';
+import WeatherIcon from './WeatherIcon'; 
+import TemperatureDisplay from './TemperatureDisplay'; 
+import LocationDisplay from './LocationDisplay'; 
 
 interface CurrentProps {
   data: {
@@ -19,38 +22,15 @@ interface CurrentProps {
 
 const Current = ({ data }: CurrentProps) => {
   const weatherIcon = data.current ? data.current.condition.icon : null;
-  const currentDate = getCurrentDate();
+
   return (
     <div className="flex flex-col mb-8 md:mb-0 items-start gap-2 bg-black/25 p-6 rounded-xl">
       <div className="flex items-center">
-        <div className="">
-          <h1 className="text-3xl text-white">Hoy</h1>
-          <p className="text-white">{currentDate}</p>
-        </div>
-        {weatherIcon && (
-          <div>
-            <img className="w-[50px] object-cover" src={weatherIcon} alt="Weather Icon" />
-          </div>
-        )}
+        <DateDisplay />
+        {weatherIcon && <WeatherIcon icon={weatherIcon} />}
       </div>
-      <div>
-        {data.current ? (
-          <p className="text-5xl text-white">
-            {data.current.temp_c.toFixed()}
-            <span>°</span>
-          </p>
-        ) : null}
-      </div>
-      <div>
-        {data.location ? (
-          <div className="flex items-center text-black bg-white/90 px-2 py-2 rounded-xl">
-            <LocationOnIcon />
-            <span>
-              {data.location.name}, {data.location.region}
-            </span>
-          </div>
-        ) : null}
-      </div>
+      <TemperatureDisplay temperature={data.current?.temp_c || 0} />
+      {data.location && <LocationDisplay location={data.location} />}
     </div>
   );
 };

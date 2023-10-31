@@ -1,3 +1,6 @@
+import React from 'react';
+import WeatherDetail from './WeatherDetail'; 
+
 interface WeatherDetailsProps {
   data: {
     current?: {
@@ -24,93 +27,53 @@ const WeatherDetails = ({ data }: WeatherDetailsProps) => {
     return null;
   }
 
+  const { current, forecast } = data;
+
   return (
     <div className="p-12">
       <h1 className="mb-4 text-2xl text-white italic font-bold">Detalles del clima</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-center italic font-bold">
-        <div className="bg-white/50 flex p-4 items-center justify-center gap-6 rounded-xl">
-          <div className="text-2xl">
-            <h3>Velocidad del viento</h3>
-            <h3
-              className="text-white bg-black/25 rounded-xl mt-1"
-              aria-label={`Wind Speed: ${data.current.wind_mph} mph`}
-            >
-              {data.current.wind_mph} mph
-            </h3>
-          </div>
-        </div>
-        <div className="bg-white/50 flex p-4 items-center justify-center gap-6 rounded-xl">
-          <div className="text-2xl">
-            <h3>Humedad</h3>
-            <h3 className="text-white bg-black/25 rounded-xl mt-1" aria-label={`Humidity: ${data.current.humidity}%`}>
-              {data.current.humidity}%
-            </h3>
-          </div>
-        </div>
-        <div className="bg-white/50 flex p-4 items-center justify-center gap-6 rounded-xl">
-          <div className="text-2xl">
-            <h3>Dirección del viento</h3>
-            <h3
-              className="text-white bg-black/25 rounded-xl mt-1"
-              aria-label={`Wind Direction: ${data.current.wind_dir}`}
-            >
-              {data.current.wind_dir}
-            </h3>
-          </div>
-        </div>
-        <div className="bg-white/50 flex p-4 items-center justify-center gap-6 rounded-xl">
-          <div className="text-2xl">
-            <h3>Amanecer</h3>
-            <h3
-              className="text-white bg-black/25 rounded-xl mt-1 px-2"
-              aria-label={`Sunrise: ${data.forecast?.forecastday[0]?.astro.sunrise}`}
-            >
-              {data.forecast?.forecastday[0]?.astro.sunrise}
-            </h3>
-          </div>
-        </div>
-        <div className="bg-white/50 flex p-4 items-center justify-center gap-6 rounded-xl">
-          <div className="text-2xl">
-            <h3>Atardecer</h3>
-            <h3
-              className="text-white bg-black/25 rounded-xl mt-1 px-2"
-              aria-label={`Sunset: ${data.forecast?.forecastday[0]?.astro.sunset}`}
-            >
-              {data.forecast?.forecastday[0]?.astro.sunset}
-            </h3>
-          </div>
-        </div>
-        <div className="bg-white/50 flex p-4 items-center justify-center gap-6 rounded-xl">
-          <div className="text-2xl">
-            <h3>Presión del aire</h3>
-            <h3
-              className="text-white bg-black/25 rounded-xl mt-1"
-              aria-label={`Air Pressure: ${data.current.pressure_mb} hPa`}
-            >
-              {data.current.pressure_mb} mb
-            </h3>
-          </div>
-        </div>
-        <div className="bg-white/50 flex p-4 items-center justify-center gap-6 rounded-xl">
-          <div className="text-2xl">
-            <h3>Sensación real</h3>
-            <h3
-              className="text-white bg-black/25 rounded-xl mt-1"
-              aria-label={`Feels Like: ${data.current.feelslike_c}°`}
-            >
-              {data.current.feelslike_c}°
-            </h3>
-          </div>
-        </div>
-        <div className="bg-white/50 flex p-4 items-center justify-center gap-6 rounded-xl">
-          <div className="text-2xl">
-            <h3>Visibilidad</h3>
-            <h3 className="text-white bg-black/25 rounded-xl mt-1" aria-label={`Visibility: ${data.current.vis_km} km`}>
-              {data.current.vis_km} km
-            </h3>
-          </div>
-        </div>
+        <WeatherDetail
+          label="Velocidad del viento"
+          value={`${current.wind_mph} mph`}
+          ariaLabel={`Wind Speed: ${current.wind_mph} mph`}
+        />
+        <WeatherDetail
+          label="Humedad"
+          value={`${current.humidity}%`}
+          ariaLabel={`Humidity: ${current.humidity}%`}
+        />
+        <WeatherDetail
+          label="Dirección del viento"
+          value={current.wind_dir}
+          ariaLabel={`Wind Direction: ${current.wind_dir}`}
+        />
+        <WeatherDetail
+          label="Amanecer"
+          value={forecast?.forecastday[0]?.astro.sunrise || ''}
+          ariaLabel={`Sunrise: ${forecast?.forecastday[0]?.astro.sunrise || ''}`}
+        />
+        <WeatherDetail
+          label="Atardecer"
+          value={forecast?.forecastday[0]?.astro.sunset || ''}
+          ariaLabel={`Sunset: ${forecast?.forecastday[0]?.astro.sunset || ''}`}
+        />
+        <WeatherDetail
+          label="Presión del aire"
+          value={`${current.pressure_mb} hPa`}
+          ariaLabel={`Air Pressure: ${current.pressure_mb} hPa`}
+        />
+        <WeatherDetail
+          label="Sensación real"
+          value={`${current.feelslike_c}°`}
+          ariaLabel={`Feels Like: ${current.feelslike_c}°`}
+        />
+        <WeatherDetail
+          label="Visibilidad"
+          value={`${current.vis_km} km`}
+          ariaLabel={`Visibility: ${current.vis_km} km`}
+        />
       </div>
     </div>
   );

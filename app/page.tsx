@@ -26,7 +26,7 @@ export default function Home() {
         setLocation("");
         setError("");
       } catch (error) {
-        setError("City not found");
+        setError("Ciudad no encontrada");
         setData({});
       }
     }
@@ -62,8 +62,8 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-cover bg-gradient-to-r from-blue-900 to-blue-500 h-screen">
-      <div className="bg-white/25 w-full rounded-lg flex flex-col h-screen">
+    <div className="bg-cover bg-gradient-to-r from-blue-900 to-blue-500 h-fit">
+      <div className="bg-white/25 w-full rounded-lg flex flex-col h-fit">
         <div className="flex flex-col md:flex-row justify-between items-center p-12">
           <Input handleSearch={handleSearch} setLocation={setLocation} />
           <h1 className="mb-8 md:mb-0 order-1 text-white text-2xl py-2 px-4 rounded-xl italic font-bold">
